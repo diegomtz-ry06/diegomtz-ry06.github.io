@@ -1,0 +1,147 @@
+/* Definición de paleta de colores y fuentes en :root para fácil edición */
+:root {
+    --primary-color: #007bff;
+    --dark-color: #222;
+    --light-color: #f4f4f4;
+    --font-family: 'Arial', sans-serif;
+}
+
+/* Reseteo básico y responsivo */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    line-height: 1.6;
+    background-color: var(--light-color);
+    color: var(--dark-color);
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Estilos de la barra de navegación */
+.navbar {
+    background-color: var(--dark-color);
+    color: white;
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    margin-left: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.navbar ul li a:hover {
+    color: var(--primary-color);
+}
+
+/* Sección Hero (Inicio) */
+.hero {
+    height: 100vh;
+    background-color: var(--dark-color);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Botón reutilizable */
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Estructura de secciones */
+.section {
+    padding: 4rem 0;
+}
+
+/* Rejilla de Proyectos (con Flexbox) */
+.project-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem; /* Espacio entre tarjetas */
+    justify-content: center;
+}
+
+.project-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 320px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.project-card img {
+    width: 100%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.project-card h3,
+.project-card p,
+.project-card .project-tags,
+.project-card .project-links {
+    padding: 1rem;
+}
+
+/* Animación de aparición (Fade-in) */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsividad para móviles */
+@media(max-width: 768px) {
+    .navbar .container {
+        flex-direction: column;
+    }
+    .navbar ul {
+        padding-top: 1rem;
+    }
+}
