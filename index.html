@@ -74,7 +74,53 @@
             </div>
         </section>
     </main>
-              
+            <div>
+                <h2>IGNORAR EL SIGUIENTE SCRIPT</h2>
+                <pre>
+                    Creamos la capas de carpetas que cargaremos como root: 
+mkdir -pv $LFS/{bin,etc,lib,sbin,usr,var} 
+case $(uname -m) in 
+x86_64) mkdir -pv $LFS/lib64 ;; 
+esac 
+51 
+Creamos la carpeta tools: mkdir -v $LFS/tools 
+La carpeta tools es donde estarán todos los programas compilados en la primera 
+fase de compilación. 
+Añadimos el usuario lfs al sistema mediante los siguientes comandos: 
+groupadd lfs  
+useradd -s /bin/bash -g lfs -m -k /dev/null lfs 
+Para darle una contraseña al usuario lfs: passwd lfs 
+(La contraseña que le daré será: usuario) 
+52 
+Para que la carpetas tools y sources pasen a ser del usuario lfs hacemos lo 
+siguiente: 
+chown -v lfs $LFS/{usr,lib,var,etc,bin,sbin,tools} 
+case $(uname -m) in 
+x86_64) chown -v lfs $LFS/lib64 ;; 
+esac 
+chown -v lfs $LFS/sources 
+Para pasar a iniciar como lfs: su - lfs 
+53 
+Luego preparamos todo para compilar todos los paquetes que iremos viendo , 
+para ello daremos valor a unas variables necesarias : 
+cat > ~/.bash_profile << "EOF" 
+exec env -i HOME=$HOME TERM=$TERM PS1='\u:\w\$ ' /bin/bash 
+EOF 
+cat > ~/.bashrc << "EOF" 
+set +h 
+umask 022 
+LFS=/mnt/lfs 
+LC_ALL=POSIX 
+LFS_TGT=$(uname -m)-lfs-linux-gnu 
+PATH=/usr/bin 
+if [ ! -L /bin ]; then PATH=/bin:$PATH; fi 
+PATH=$LFS/tools/bin:$PATH 
+CONFIG_SITE=$LFS/usr/share/config.site 
+export LFS LC_ALL LFS_TGT PATH CONFIG_SITE 
+EOF 
+source ~/.bash_profile
+                </pre>
+            </div>
             </div>
 
     <footer class="footer">
